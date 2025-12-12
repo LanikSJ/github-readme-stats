@@ -11,6 +11,12 @@ on:
   schedule:
     - cron: "0 0 * * 0" # Weekly on Sundays at midnight UTC
 
+permissions:
+  actions: read
+  contents: read
+  security-events: write
+  id-token: write
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
