@@ -9,7 +9,7 @@ on:
     branches: [main]
   workflow_dispatch:
   schedule:
-    - cron: '0 0 * * 0'  # Weekly on Sundays at midnight UTC
+    - cron: "0 0 * * 0" # Weekly on Sundays at midnight UTC
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -35,8 +35,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
         with:
-          node-version-file: '.nvmrc'
-          cache: 'npm'
+          node-version-file: ".nvmrc"
+          cache: "npm"
 
       # Install dependencies
       - name: Install Dependencies
