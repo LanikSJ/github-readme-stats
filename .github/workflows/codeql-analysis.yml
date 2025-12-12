@@ -1,43 +1,39 @@
-name: "Static code analysis workflow (CodeQL)"
+# CodeQL Analysis Workflow
+# This workflow performs CodeQL security analysis on the repository
+name: "CodeQL Analysis"
 
 on:
   push:
-    branches:
-      - master
+    branches: [main]
   pull_request:
-    branches:
-      - master
+    branches: [main]
 
-permissions:
-  actions: read
-  checks: read
-  contents: read
-  deployments: read
-  issues: read
-  discussions: read
-  packages: read
-  pages: read
-  pull-requests: read
-  repository-projects: read
-  security-events: write
-  statuses: read
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  CodeQL-Build:
-    if: github.repository == 'anuraghazra/github-readme-stats'
-
-    # CodeQL runs on ubuntu-latest, windows-latest, and macos-latest
+  codeql-analysis:
+    name: CodeQL Analysis
     runs-on: ubuntu-latest
+    timeout-minutes: 45
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
+      # Checkout the repository to analyze
+      - name: Checkout Repository
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
 
-      # Initializes the CodeQL tools for scanning.
+      # Initialize CodeQL with Ruby language analysis
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@46a6823b81f2d7c67ddf123851eea88365bc8a67 # v2.13.5
+        uses: github/codeql-action/init@cf1bb45a277cb3c205638b2cd5c984db1c46a412 # v4.31.7
         with:
-          languages: javascript
+          languages: ruby
+          # config-file: ./.github/codeql/codeql-config.yml  # Uncomment if config file exists
 
+      # Perform CodeQL analysis
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@46a6823b81f2d7c67ddf123851eea88365bc8a67 # v2.13.5
+        uses: github/codeql-action/analyze@cf1bb45a277cb3c205638b2cd5c984db1c46a412 # v4.31.7

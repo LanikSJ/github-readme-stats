@@ -1,17 +1,17 @@
-name: OSSF Scorecard analysis workflow
+name: OSSF Scorecard Analysis Workflow
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
     branches:
-      - master
+      - main
 
 permissions: read-all
 
 jobs:
   analysis:
-    if: github.repository == 'anuraghazra/github-readme-stats'
+    if: github.repository == 'LanikSJ/github-readme-stats'
     name: Scorecard analysis
     runs-on: ubuntu-latest
     permissions:
