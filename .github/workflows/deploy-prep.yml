@@ -6,9 +6,11 @@ on:
       - main
 
 jobs:
-  config:
+  deploy-prep:
     if: github.repository == 'LanikSJ/github-readme-stats'
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
       - name: Deployment Prep
@@ -17,4 +19,5 @@ jobs:
         with:
           branch: vercel
           create_branch: true
+          commit_message: "Prepare deployment configuration"
           push_options: "--force"
