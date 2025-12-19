@@ -1,6 +1,7 @@
-FROM node:24-alpine
+FROM node:24-alpine@sha256:7e0bd0460b26eb3854ea5b99b887a6a14d665d14cae694b78ae2936d14b2befb
 
-RUN apk add --no-cache git jq bash tini && npm install -g npm@11.7.0
+RUN apk add --no-cache git jq bash tini \
+  && npm install -g npm@11.7.0
 
 # Create the working directory and set permissions
 WORKDIR /repo
