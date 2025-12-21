@@ -13,7 +13,7 @@ permissions:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
+  IMAGE_NAME: laniksj/github-readme-stats
 
 jobs:
   build-and-push-image:
@@ -46,7 +46,7 @@ jobs:
             type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
             type=ref,event=tag
 
-      - name: Build and push Docker image
+      - name: Build and Push Docker Image
         uses: docker/build-push-action@263435318d21b8e681c14492fe198d362a7d2c83 # v6.0.0
         with:
           push: true
