@@ -126,9 +126,9 @@ const UPSTREAM_API_ERRORS = [
 /**
  * Sanitize a color value to prevent CSS/SVG injection.
  * Allows only safe hex color formats; falls back to a default if invalid.
- * @param {string | string[] | undefined} value
- * @param {string} defaultColor
- * @returns {string}
+ * @param {string | string[] | undefined} value The color value to sanitize.
+ * @param {string} defaultColor The default color to return if value is invalid.
+ * @returns {string} The sanitized color value.
  */
 function sanitizeColor(value, defaultColor) {
   if (Array.isArray(value)) {
