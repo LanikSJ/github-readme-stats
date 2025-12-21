@@ -124,29 +124,16 @@ const UPSTREAM_API_ERRORS = [
 ];
 
 /**
- * Renders error message on the card.
- *
- * @param {object} args Function arguments.
- * @param {string} args.message Main error message.
- * @param {string} [args.secondaryMessage=""] The secondary error message.
- * @param {object} [args.renderOptions={}] Render options.
- * @param {string=} args.renderOptions.title_color Card title color.
- * @param {string=} args.renderOptions.text_color Card text color.
- * @param {string=} args.renderOptions.bg_color Card background color.
- * @param {string=} args.renderOptions.border_color Card border color.
- * @param {Parameters<typeof getCardColors>[0]["theme"]=} args.renderOptions.theme Card theme.
- * @param {boolean=} args.renderOptions.show_repo_link Whether to show repo link or not.
- * @returns {string} The SVG markup.
- */
-/**
  * Sanitize a color value to prevent CSS/SVG injection.
  * Allows only safe hex color formats; falls back to a default if invalid.
- *
- * @param {string | undefined} value
+ * @param {string | string[] | undefined} value
  * @param {string} defaultColor
  * @returns {string}
  */
-const sanitizeColor = (value, defaultColor) => {
+function sanitizeColor(value, defaultColor) {
+  if (Array.isArray(value)) {
+    return defaultColor;
+  }
   if (typeof value !== "string") {
     return defaultColor;
   }
@@ -160,13 +147,28 @@ const sanitizeColor = (value, defaultColor) => {
   }
 
   return defaultColor;
-};
+}
 
-const renderError = ({
-  message,
-  secondaryMessage = "",
-  renderOptions = {},
-}) => {
+/**
+ * Renders error message on the card.
+ * @param {object} args Function arguments.
+ * @param {string} args.message Main error message.
+ * @param {string} [args.secondaryMessage=""] The secondary error message.
+ * @param {object} [args.renderOptions={}] Render options.
+ * @param {string=} args.renderOptions.title_color Card title color.
+ * @param {string=} args.renderOptions.text_color Card text color.
+ * @param {string=} args.renderOptions.bg_color Card background color.
+ * @param {string=} args.renderOptions.border_color Card border color.
+ * @param {Parameters<typeof getCardColors>[0]["theme"]=} args.renderOptions.theme Card theme.
+ * @param {boolean=} args.renderOptions.show_repo_link Whether to show repo link or not.
+ * @returns {string} The SVG markup.
+ */
+function renderError(args) {
+  const {
+    message,
+    secondaryMessage = "",
+    renderOptions = {},
+  } = args;
   const {
     title_color,
     text_color,
