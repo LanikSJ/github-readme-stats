@@ -133,6 +133,10 @@ export default async (req, res) => {
 
     setCacheHeaders(res, cacheSeconds);
 
+    const parsedBorderRadius = border_radius
+      ? parseInt(border_radius, 10)
+      : undefined;
+
     return res.send(
       renderTopLanguages(topLangs, {
         custom_title,
@@ -146,7 +150,7 @@ export default async (req, res) => {
         theme,
         layout,
         langs_count,
-        border_radius,
+        border_radius: parsedBorderRadius,
         border_color,
         locale: locale ? locale.toLowerCase() : null,
         disable_animations: parseBoolean(disable_animations),
