@@ -164,11 +164,7 @@ function sanitizeColor(value, defaultColor) {
  * @returns {string} The SVG markup.
  */
 function renderError(args) {
-  const {
-    message,
-    secondaryMessage = "",
-    renderOptions = {},
-  } = args;
+  const { message, secondaryMessage = "", renderOptions = {} } = args;
   const {
     title_color,
     text_color,
@@ -216,7 +212,7 @@ function renderError(args) {
     </text>
     </svg>
   `;
-};
+}
 
 /**
  * Retrieve text length.
