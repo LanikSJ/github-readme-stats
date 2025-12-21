@@ -1,43 +1,42 @@
-name: "Static code analysis workflow (CodeQL)"
-
+name: "CodeQL Analysis"
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
-    branches:
-      - master
+    types: [opened, synchronize, reopened]
 
 permissions:
-  actions: read
-  checks: read
   contents: read
-  deployments: read
-  issues: read
-  discussions: read
-  packages: read
-  pages: read
-  pull-requests: read
-  repository-projects: read
-  security-events: write
-  statuses: read
 
 jobs:
-  CodeQL-Build:
-    if: github.repository == 'anuraghazra/github-readme-stats'
-
-    # CodeQL runs on ubuntu-latest, windows-latest, and macos-latest
+  analyze:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
 
     steps:
-      - name: Checkout repository
+      # Checkout the repository to analyze
+      - name: Checkout Repository
         uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
 
-      # Initializes the CodeQL tools for scanning.
+      # Setup Node.js for proper JavaScript analysis
+      - name: Setup Node.js
+        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
+        with:
+          node-version-file: ".nvmrc"
+          cache: "npm"
+
+      # Install dependencies
+      - name: Install Dependencies
+        run: npm ci
+
+      # Initialize CodeQL for JavaScript analysis
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@46a6823b81f2d7c67ddf123851eea88365bc8a67 # v2.13.5
+        uses: github/codeql-action/init@cf1bb45a277cb3c205638b2cd5c984db1c46a412 # v4.31.7
         with:
           languages: javascript
 
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@46a6823b81f2d7c67ddf123851eea88365bc8a67 # v2.13.5
+        uses: github/codeql-action/analyze@cf1bb45a277cb3c205638b2cd5c984db1c46a412 # v4.31.7

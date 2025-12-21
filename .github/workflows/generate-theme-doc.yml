@@ -2,7 +2,7 @@ name: Generate Theme Readme
 on:
   push:
     branches:
-      - master
+      - main
     paths:
       - "themes/index.js"
   workflow_dispatch:
@@ -24,10 +24,10 @@ permissions:
 jobs:
   generateThemeDoc:
     runs-on: ubuntu-latest
-    name: Generate theme doc
+    name: Generate Theme Doc
     strategy:
       matrix:
-        node-version: [22.x]
+        node-version: [24.x]
 
     steps:
       - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
@@ -38,11 +38,10 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: npm
 
-      # Fix the unsafe repo error which was introduced by the CVE-2022-24765 git patches.
-      - name: Fix unsafe repo error
+      - name: Fix Unsafe Repo Error
         run: git config --global --add safe.directory ${{ github.workspace }}
 
-      - name: npm install, generate readme
+      - name: Install, Generate Readme
         run: |
           npm ci
           npm run theme-readme-gen

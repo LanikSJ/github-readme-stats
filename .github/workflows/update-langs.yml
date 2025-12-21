@@ -1,15 +1,6 @@
 name: Update supported languages
 on:
   schedule:
-    #        ┌───────────── minute (0 - 59)
-    #        │ ┌───────────── hour (0 - 23)
-    #        │ │  ┌───────────── day of the month (1 - 31)
-    #        │ │  │   ┌───────────── month (1 - 12 or JAN-DEC)
-    #        │ │  │   │ ┌───────────── day of the week (0 - 6 or SUN-SAT)
-    #        │ │  │   │ │
-    #        │ │  │   │ │
-    #        │ │  │   │ │
-    #        * *  *   * *
     - cron: "0 0 */30 * *"
 
 permissions:
@@ -28,7 +19,7 @@ permissions:
 
 jobs:
   updateLanguages:
-    if: github.repository == 'anuraghazra/github-readme-stats'
+    if: github.repository == 'LanikSJ/github-readme-stats'
     name: Update supported languages
     runs-on: ubuntu-latest
     strategy:
@@ -61,7 +52,7 @@ jobs:
           title: Update languages JSON
           body:
             "The
-            [update-langs](https://github.com/anuraghazra/github-readme-stats/actions/workflows/update-langs.yaml)
+            [update-langs](https://github.com/LanikSJ/github-readme-stats/actions/workflows/update-langs.yaml)
             action found new/updated languages in the [upstream languages JSON
             file](https://raw.githubusercontent.com/github/linguist/master/lib/linguist/languages.yml)."
           labels: "ci, lang-card"
