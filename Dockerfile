@@ -1,4 +1,4 @@
-FROM node:24-alpine@sha256:7e0bd0460b26eb3854ea5b99b887a6a14d665d14cae694b78ae2936d14b2befb
+FROM node:25-alpine@sha256:f4769ca6eeb6ebbd15eb9c8233afed856e437b75f486f7fccaa81d7c8ad56007
 
 RUN apk add --no-cache git jq bash tini \
   && npm install -g npm@11.7.0
