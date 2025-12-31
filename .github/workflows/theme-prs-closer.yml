@@ -19,7 +19,7 @@ permissions:
 
 jobs:
   close-prs:
-    if: github.repository == 'LanikSJ/github-readme-stats'
+    if: github.repository == 'anuraghazra/github-readme-stats'
     runs-on: ubuntu-latest
     steps:
       - name: Check out the code

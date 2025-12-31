@@ -19,7 +19,7 @@ permissions:
 
 jobs:
   updateLanguages:
-    if: github.repository == 'LanikSJ/github-readme-stats'
+    if: github.repository == 'anuraghazra/github-readme-stats'
     name: Update supported languages
     runs-on: ubuntu-latest
     strategy:
