@@ -76,7 +76,7 @@ Use `?theme=THEME_NAME` parameter like so:
 
 
 [default]: https://github-readme-stats.vercel.app/api?username=LanikSJ&show_icons=true&hide=contribs,prs&cache_seconds=86400&theme=default
-[default_repocard]: https://github-readme-stats.vercel.app/api?username=LanikSJ&show_icons=true&hide=contribs,prs&cache_seconds=86400&theme=default_repocard
+d
 [transparent]: https://github-readme-stats.vercel.app/api?username=LanikSJ&show_icons=true&hide=contribs,prs&cache_seconds=86400&theme=transparent
 [shadow_red]: https://github-readme-stats.vercel.app/api?username=LanikSJ&show_icons=true&hide=contribs,prs&cache_seconds=86400&theme=shadow_red
 [shadow_green]: https://github-readme-stats.vercel.app/api?username=LanikSJ&show_icons=true&hide=contribs,prs&cache_seconds=86400&theme=shadow_green
@@ -152,8 +152,7 @@ Use `?theme=THEME_NAME` parameter like so:
 [ambient_gradient]: https://github-readme-stats.vercel.app/api?username=LanikSJ&show_icons=true&hide=contribs,prs&cache_seconds=86400&theme=ambient_gradient
 
 
-[default_repo]: https://github-readme-stats.vercel.app/api/pin/?username=LanikSJ&repo=github-readme-stats&cache_seconds=86400&theme=default
-[default_repocard_repo]: https://github-readme-stats.vercel.app/api/pin/?username=LanikSJ&repo=github-readme-stats&cache_seconds=86400&theme=default_repocard
+t[default_repocard_repo]: https://github-readme-stats.vercel.app/api/pin/?username=LanikSJ&repo=github-readme-stats&cache_seconds=86400&theme=default_repocard
 [transparent_repo]: https://github-readme-stats.vercel.app/api/pin/?username=LanikSJ&repo=github-readme-stats&cache_seconds=86400&theme=transparent
 [shadow_red_repo]: https://github-readme-stats.vercel.app/api/pin/?username=LanikSJ&repo=github-readme-stats&cache_seconds=86400&theme=shadow_red
 [shadow_green_repo]: https://github-readme-stats.vercel.app/api/pin/?username=LanikSJ&repo=github-readme-stats&cache_seconds=86400&theme=shadow_green
