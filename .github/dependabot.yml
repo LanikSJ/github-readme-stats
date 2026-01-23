@@ -19,6 +19,10 @@ updates:
     commit-message:
       prefix: "ci(deps)"
       prefix-development: "ci(deps-dev)"
+    groups:
+      github-actions:
+        patterns:
+          - "*"
 
   # Maintain dependencies for Devcontainers
   - package-ecosystem: devcontainers
