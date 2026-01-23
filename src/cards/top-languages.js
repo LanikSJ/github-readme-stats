@@ -11,6 +11,7 @@ import {
   measureText,
 } from "../common/render.js";
 import { langCardLocales } from "../translations.js";
+import { encodeHTML } from "../common/html.js";
 
 const DEFAULT_CARD_WIDTH = 300;
 const MIN_CARD_WIDTH = 280;
@@ -891,6 +892,9 @@ const renderTopLanguages = (topLangs, options = {}) => {
 
   card.setHideBorder(hide_border);
   card.setHideTitle(hide_title);
+
+  const safeTextColor = encodeHTML(colors.textColor || "");
+
   card.setCSS(
     `
     @keyframes slideInAnimation {
@@ -910,7 +914,7 @@ const renderTopLanguages = (topLangs, options = {}) => {
       }
     }
     .stat {
-      font: 600 14px 'Segoe UI', Ubuntu, "Helvetica Neue", Sans-Serif; fill: ${colors.textColor};
+      font: 600 14px 'Segoe UI', Ubuntu, "Helvetica Neue", Sans-Serif; fill: ${safeTextColor};
     }
     @supports(-moz-appearance: auto) {
       /* Selector detects Firefox */
@@ -919,7 +923,7 @@ const renderTopLanguages = (topLangs, options = {}) => {
     .bold { font-weight: 700 }
     .lang-name {
       font: 400 11px "Segoe UI", Ubuntu, Sans-Serif;
-      fill: ${colors.textColor};
+      fill: ${safeTextColor};
     }
     .stagger {
       opacity: 0;

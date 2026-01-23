@@ -19,9 +19,23 @@ updates:
     commit-message:
       prefix: "ci(deps)"
       prefix-development: "ci(deps-dev)"
+    groups:
+      github-actions:
+        patterns:
+          - "*"
 
   # Maintain dependencies for Devcontainers
   - package-ecosystem: devcontainers
+    directory: "/"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 10
+    commit-message:
+      prefix: "build(deps)"
+      prefix-development: "build(deps-dev)"
+
+  # Maintain dependencies for Docker
+  - package-ecosystem: docker
     directory: "/"
     schedule:
       interval: weekly

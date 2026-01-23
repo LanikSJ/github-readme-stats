@@ -124,8 +124,33 @@ const UPSTREAM_API_ERRORS = [
 ];
 
 /**
+ * Sanitize a color value to prevent CSS/SVG injection.
+ * Allows only safe hex color formats; falls back to a default if invalid.
+ * @param {string | string[] | undefined} value The color value to sanitize.
+ * @param {string} defaultColor The default color to return if value is invalid.
+ * @returns {string} The sanitized color value.
+ */
+function sanitizeColor(value, defaultColor) {
+  if (Array.isArray(value)) {
+    return defaultColor;
+  }
+  if (typeof value !== "string") {
+    return defaultColor;
+  }
+
+  const trimmed = value.trim();
+  // Allow only hex color values: #RGB, #RRGGBB, #RRGGBBAA
+  const hexColorPattern = /^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$/;
+
+  if (hexColorPattern.test(trimmed)) {
+    return trimmed;
+  }
+
+  return defaultColor;
+}
+
+/**
  * Renders error message on the card.
- *
  * @param {object} args Function arguments.
  * @param {string} args.message Main error message.
  * @param {string} [args.secondaryMessage=""] The secondary error message.
@@ -138,11 +163,8 @@ const UPSTREAM_API_ERRORS = [
  * @param {boolean=} args.renderOptions.show_repo_link Whether to show repo link or not.
  * @returns {string} The SVG markup.
  */
-const renderError = ({
-  message,
-  secondaryMessage = "",
-  renderOptions = {},
-}) => {
+function renderError(args) {
+  const { message, secondaryMessage = "", renderOptions = {} } = args;
   const {
     title_color,
     text_color,
@@ -163,16 +185,22 @@ const renderError = ({
     theme,
   });
 
+  // Ensure colors are safe to interpolate into SVG/CSS.
+  const safeBgColor = sanitizeColor(bgColor, "#ffffff");
+  const safeTitleColor = sanitizeColor(titleColor, "#000000");
+  const safeTextColor = sanitizeColor(textColor, "#000000");
+  const safeBorderColor = sanitizeColor(borderColor, "#e4e2e2");
+
   return `
-    <svg width="${ERROR_CARD_LENGTH}"  height="120" viewBox="0 0 ${ERROR_CARD_LENGTH} 120" fill="${bgColor}" xmlns="http://www.w3.org/2000/svg">
+    <svg width="${ERROR_CARD_LENGTH}"  height="120" viewBox="0 0 ${ERROR_CARD_LENGTH} 120" fill="${safeBgColor}" xmlns="http://www.w3.org/2000/svg">
     <style>
-    .text { font: 600 16px 'Segoe UI', Ubuntu, Sans-Serif; fill: ${titleColor} }
-    .small { font: 600 12px 'Segoe UI', Ubuntu, Sans-Serif; fill: ${textColor} }
+    .text { font: 600 16px 'Segoe UI', Ubuntu, Sans-Serif; fill: ${safeTitleColor} }
+    .small { font: 600 12px 'Segoe UI', Ubuntu, Sans-Serif; fill: ${safeTextColor} }
     .gray { fill: #858585 }
     </style>
     <rect x="0.5" y="0.5" width="${
       ERROR_CARD_LENGTH - 1
-    }" height="99%" rx="4.5" fill="${bgColor}" stroke="${borderColor}"/>
+    }" height="99%" rx="4.5" fill="${safeBgColor}" stroke="${safeBorderColor}"/>
     <text x="25" y="45" class="text">Something went wrong!${
       UPSTREAM_API_ERRORS.includes(secondaryMessage) || !show_repo_link
         ? ""
@@ -180,11 +208,11 @@ const renderError = ({
     }</text>
     <text data-testid="message" x="25" y="55" class="text small">
       <tspan x="25" dy="18">${encodeHTML(message)}</tspan>
-      <tspan x="25" dy="18" class="gray">${secondaryMessage}</tspan>
+      <tspan x="25" dy="18" class="gray">${encodeHTML(secondaryMessage)}</tspan>
     </text>
     </svg>
   `;
-};
+}
 
 /**
  * Retrieve text length.
